@@ -27,6 +27,13 @@ Notes and code for the 2020 *Mind Your Data* 180min workshop in Coimbra. The wor
 - e1071
 - gbm
 - ROCR
+- randomForest
+- glmnet
+- rqPen
+- shiny
+- shinydashboard
+- shinyalert
+- DT
 
 ## Supporting Info:
  - [Student Performance Data Set](http://archive.ics.uci.edu/ml/datasets/Student+Performance)

@@ -9,8 +9,11 @@ library(tidyr)
 library(dplyr)
 library(GGally)
 
+# set working directory
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+
 # 1 - Load data -----------------------------------------------------------
-grades_mat <- read.csv('0-intro-to-R/data/student-mat.csv', header = TRUE, sep = ';')
+grades_mat <- read.csv('data/student-mat.csv', header = TRUE, sep = ';')
 # grades_por <- read.csv('0-intro-to-R/data/student-por.csv', header = TRUE, sep = ';')
 
 # 2 - Data Visualisation and Analysis -------------------------------------
@@ -73,7 +76,7 @@ grades <- pivot_longer(grades_mat,
 
 # image about boxplots
 library(magick)
-boxplot_pic <- image_read('0-intro-to-R/data/boxplot.png')
+boxplot_pic <- image_read('data/boxplot.png')
 boxplot_pic <- image_scale(boxplot_pic, "700")
 print(boxplot_pic)
 rm(boxplot_pic)
