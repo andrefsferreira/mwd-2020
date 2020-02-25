@@ -7,6 +7,7 @@ library(skimr)
 library(ggplot2)
 library(tidyr)
 library(dplyr)
+library(GGally)
 
 # 1 - Load data -----------------------------------------------------------
 grades_mat <- read.csv('0-intro-to-R/data/student-mat.csv', header = TRUE, sep = ';')
@@ -147,7 +148,7 @@ ggplot(grades_mat, aes(x = Fjob, y = G3)) +
 grades_mat$final <- factor(ifelse(grades_mat$G3 >= 10, 1, 0), labels = c("fail", "pass"))
 
 # remove G3 variable from the dataset
-grades_mat$G3 <- NULL
+# grades_mat$G3 <- NULL
 
 # impact of Fjob in pass or fail
 ggplot(grades_mat, aes(x = Fjob, group = final, fill = final)) + 
@@ -165,5 +166,42 @@ higher_impact <- group_by(grades_mat, higher, final)
 higher_impact <- summarise(higher_impact, total = n())
 higher_impact
 
+# ratios -- base-r
+nohigher <- sum(higher_impact[which(higher_impact$higher == 'no'), 'total'])
+nohigher_fail <- higher_impact[which(higher_impact$higher == 'no' & higher_impact$final == 'fail'), 'total']
 
-# 3 - Data Wrangling ------------------------------------------------------
+higher <- sum(higher_impact[which(higher_impact$higher == 'yes'), 'total'])
+higher_fail <- higher_impact[which(higher_impact$higher == 'yes' & higher_impact$final == 'fail'), 'total']
+
+nohigher_fail/nohigher
+higher_fail/higher
+
+# ratios -- dplyr (magrittr)
+grades_mat %>% 
+  group_by(higher, final) %>% 
+  summarise(count = n()) %>% 
+  group_by(higher) %>% 
+  mutate(ratio = count / sum(count)) 
+
+
+# correlations
+dmy <- dummyVars("~.", data = grades_mat)
+newdata <- data.frame(predict(dmy, newdata = grades_mat))
+correl1 <-cor(newdata[,c("G3","sex.F","sex.M","Walc","Dalc")])
+correl1 %>%
+  ggcorr(label = TRUE) +
+  ggtitle("Correlation between Alcohol Consumption,Gender and Performance")
+
+# 3 - Exercices -----------------------------------------------------------
+# What is the effect in the success rate (final) of the Math Course of the following attributes?
+
+# 3.1 Family size (famsize)
+
+
+# 3.2 Students with internet access at home (internet) and extra paid classes (paid)
+# have higher success?
+
+
+# 3.3 Effect of traveltime in G3
+
+
