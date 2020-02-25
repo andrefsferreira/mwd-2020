@@ -1,9 +1,9 @@
 ## Description:
-Notes and code for the 2020 *Mind Your Data* 180min workshop in Coimbra. The workshop is divided in three stages:
+Notes and code for the 2020 **Mind Your Data** 180 min workshop in Coimbra. The workshop is divided in three stages:
 
-1. [Introduction to R](https://github.com/andrefsferreira/mwd-2020/tree/master/0-intro-to-R) - Introduction to R language and how to data wrangling
+1. [Introduction to R](https://github.com/andrefsferreira/mwd-2020/tree/master/0-intro-to-R) - Introduction to RStudio IDE and R language 
 2. [Build you First Model](https://github.com/andrefsferreira/mwd-2020/tree/master/1-build-your-first-model) - Data attribute analysis, cleanning and classification model creation
-3. [Deploy your Model](https://github.com/andrefsferreira/mwd-2020/tree/master/2-deploy-your-model) -  Deployment of model using RStudio Shiny
+3. [Deploy your Model](https://github.com/andrefsferreira/mwd-2020/tree/master/2-deploy-your-model) - Deployment of model using RStudio Shiny
 
 ## Requirements:
 ##### 1. R Interpreter
