@@ -70,7 +70,7 @@ dim(data_test)
 
 # 3 - Train model ---------------------------------------------------------
 # image about cross validation
-kfolds_pic <- image_read('../0-figures/kfolds.png')
+kfolds_pic <- image_read('../0-media/kfolds.png')
 kfolds_pic <- image_scale(kfolds_pic, "700")
 print(kfolds_pic)
 rm(kfolds_pic)
@@ -87,8 +87,17 @@ train_control <- trainControl(method = 'cv',            # cross validation
 set.seed(2020)
 model <- train(final ~ ., 
                data = data_train,
-               # method examples -- knn, glm, ridge, rpart, rf, nnet, gbm, xgbTree
-               method = "gbm",        
+               # method examples:
+               # knn - https://towardsdatascience.com/machine-learning-basics-with-the-k-nearest-neighbors-algorithm-6a6e71d01761, 
+               # glm - https://towardsdatascience.com/generalized-linear-models-9cbf848bb8ab, 
+               # rpart - https://eight2late.wordpress.com/2016/02/16/a-gentle-introduction-to-decision-trees-using-r/, 
+               # rf - https://towardsdatascience.com/random-forest-in-r-f66adf80ec9, 
+               # lvq - https://medium.com/@akshit.singh2504/using-learning-vector-quantization-for-classification-in-r-6be6588b471f, 
+               # svmRadial - http://www.di.fc.ul.pt/~jpn/r/svm/svm.html, 
+               # nnet - https://medium.com/@yolandawiyono98/ann-classification-with-nnet-package-in-r-3c4dc14d1f14, 
+               # gbm - http://uc-r.github.io/gbm_regression, 
+               # xgbTree - http://uc-r.github.io/gbm_regression
+               method = "knn",        
                # tuneGrid is used for grid search -- each model has its own variables
                # tuneGrid = expand.grid(k = seq(1, 30, 1)),
                trControl = train_control)
@@ -99,7 +108,7 @@ plot(model)
 
 # 4 - Evaluate model performance ------------------------------------------
 # image about cross validation
-cm_pic <- image_read('../0-figures/confusion-matrix.png')
+cm_pic <- image_read('../0-media/confusion-matrix.png')
 cm_pic <- image_scale(cm_pic, "700")
 print(cm_pic)
 rm(cm_pic)

@@ -89,7 +89,7 @@ grades <- pivot_longer(grades_mat,
 
 # image about boxplots
 library(magick)
-boxplot_pic <- image_read('../0-figures/boxplot.png')
+boxplot_pic <- image_read('../0-media/boxplot.png')
 boxplot_pic <- image_scale(boxplot_pic, "700")
 print(boxplot_pic)
 rm(boxplot_pic)
