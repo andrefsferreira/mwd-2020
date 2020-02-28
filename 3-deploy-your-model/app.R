@@ -22,8 +22,7 @@ descriptors <- read.csv('data/attribute_description.csv', sep = ';')
 
 
 # 1 - UI ------------------------------------------------------------------
-ui <- dashboardPage(
-  
+ui <- dashboardPage(skin = "blue",
   dashboardHeader(title = 'Mind Your Data 2020'),
   dashboardSidebar(
     selectInput("select_gender", 
@@ -33,7 +32,7 @@ ui <- dashboardPage(
     sliderInput("select_G2", 
                 ("Grade 2nd Semester"), 0, 20, 0),
     sliderInput("select_age", 
-                ("Age"), 15, 30, 15),
+                ("Age"), 15, 22, 15),
     radioButtons("select_fjob", 
                  label = ("Father Job"),
                  choices = list("teacher" = "teacher",
@@ -63,8 +62,6 @@ ui <- dashboardPage(
     fluidRow(
       box(width = 12,
           height = 650,
-          collapsed = FALSE,
-          collapsible = TRUE,
           solidHeader = TRUE,
           status = "primary",
           title = "Data Set and Model Info",
@@ -97,12 +94,7 @@ server <- function(input, output, session) {
   
   # Prediction
   observeEvent(input$predict,
-               # print(c(input$select_gender,
-               #         input$select_G2,
-               #         input$select_age,
-               #         input$select_fjob,
-               #         input$select_health,
-               #         input$select_goout))
+               
                if (input$predict){
                  result <- predict_function(model,
                                             input$select_gender,
@@ -120,8 +112,8 @@ server <- function(input, output, session) {
                  } else {
                    shinyalert("Sorry...try again next year ☹️", 
                               paste0("Probabilities -- success: ",
-                              round(result$pass*100,1),"%; fail: ",
-                              round(result$fail*100,1),"%"), 
+                                     round(result$pass*100,1),"%; fail: ",
+                                     round(result$fail*100,1),"%"), 
                               type = "error")
                  }
                },

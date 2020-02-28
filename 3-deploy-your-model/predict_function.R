@@ -22,15 +22,15 @@ predict_function <- function(model, gender, G2, age, fjob, health, goout) {
       grades_to_predict[,i] <- factor(names(sort(table(grades_raw[,i]), decreasing = TRUE))[1],
                                       levels = levels(grades_raw[,i]))
     }
-    
-    
   }
-  print(gender)
-  print(G2)
-  print(age)
-  print(fjob)
-  print(health)
-  print(goout)
+  
+  print(paste0('gender:', gender))
+  print(paste0('G2:', G2))
+  print(paste0('age:', age))
+  print(paste0('fjob:', fjob))
+  print(paste0('health:', health))
+  print(paste0('goout:', goout))
+  
   # populate dataframe with data from the UI
   grades_to_predict$sex <- factor(gender, levels(grades_raw$sex))
   grades_to_predict$G2 <- as.numeric(G2)

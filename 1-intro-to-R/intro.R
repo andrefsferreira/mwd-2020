@@ -9,12 +9,12 @@ x
 matrix(1, nrow = 2)
 matrix(1, nrow <- 2)
 
+# at the end of the day you can use either operator
 rm(nrow)
 
-
 ### Functions
-sum(1, 1, 1, 1, 1) #function that sums 
-c(1, 2, 3)         #function that concatenates numbers into a vector
+sum(1, 1, 1, 1, 1) # function that sums 
+c(1, 2, 3)         # function that concatenates numbers into a vector
 
 ### Extension Package
 #install.packages()
@@ -31,7 +31,7 @@ vec <- c(1, 2, 3)
 str(vec)
 
 vec_alpha <- c(1, 2, 'mwd')
-str(vec_alpha)  
+str(vec_alpha)
 
 ### Data storage
 # In R, data is stored in data frames or data tables. 
@@ -52,31 +52,39 @@ str(df)
 month.name
 str(month.name)
 
-order(month.name)
-month.name[order(month.name)]
+sort(month.name)
 
-month_ordered <- factor(month_name, levels = month_name, ordered = T)
-month_ordered[order(month_ordered)]
+month_ordered <- factor(month.name, levels = month.name, ordered = T)
+sort(month_ordered)
 
 ### Build-in Data Frame Examples
 mtcars
 
-#Here is the cell value from the first row, second column of mtcars.
-mtcars[1, 2] 
+# here is the cell value from the first row, second column of mtcars
+mtcars[1, 2]
 
-#We can also access data introducing column names and row names
+# we can also access data introducing column names and row names
 mtcars["Mazda RX4", "cyl"] 
 
-#count observations in the dataset
+# we can also access data using the $ sign
+mtcars$cyl
+
+# count observations in the dataset
 nrow(mtcars)
-#count number of variables in the dataset
+
+# count number of variables in the dataset
 ncol(mtcars)
+
+# get both dimensions
+dim(mtcars)
+
+# get a summary of the data in the data frame
+summary(mtcars)
 
 #print first rows
 head(mtcars) 
 
-#In R you can control the execution flow of your code using if conditions:
-
+# In R you can control the execution flow of your code using if conditions:
 # NOTE: 
 # 1. Unlike python, R is not indentation dependent 
 # 2. Despite not compulsory, curly braces are recommended to improve code readability
@@ -89,8 +97,8 @@ if (x == TRUE) {
   print('x did not have the value TRUE')
 }
 
-# You can also use loops to perform repetive tasks 
-# (the function paste concatenates all its parameters into a string).
+# You can also use loops to perform repetitive tasks 
+# (the function paste concatenates all its parameters into a string)
 
 for (i in 1:10) {
   print(paste(sep='','I am printing the number ', i))

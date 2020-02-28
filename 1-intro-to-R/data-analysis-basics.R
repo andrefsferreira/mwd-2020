@@ -7,16 +7,19 @@ library(skimr)
 library(ggplot2)
 library(tidyr)
 library(dplyr)
+library(caret)
 library(GGally)
 
 # set working directory
+# setwd('C:/Users/Andre/Documents/GitHub/mwd-2020/0-intro-to-R')
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 # 1 - Load data -----------------------------------------------------------
+# http://archive.ics.uci.edu/ml/datasets/Student+Performance
 grades_mat <- read.csv('data/student-mat.csv', header = TRUE, sep = ';')
-# grades_por <- read.csv('0-intro-to-R/data/student-por.csv', header = TRUE, sep = ';')
 
-# 2 - Data Visualisation and Analysis -------------------------------------
+
+# 2 - Data Visualization and Analysis -------------------------------------
 # print the first 6 rows of data
 head(grades_mat)
 
@@ -29,14 +32,20 @@ summary(grades_mat)
 # check if there is any missing value
 sapply(grades_mat, function(x) sum(is.na(x)))
 
-# data visualisation
+# for (x in names(grades_mat)){
+#   na_num <- sum(is.na(grades_mat[,x]))
+#   print(paste(x, na_num))
+# }
+
+# data visualization
 hist(grades_mat$G3)
 
 # Use more sophisticated functions
 skim(grades_mat)
 skimr::skim(grades_mat)
 
-## Check students that dropped
+
+# 2.1 - Check students that dropped ----------------------------------------
 # A G3 value of 0 indicates that the particular student has dropped the subject. 
 # Here we compare the data between students who dropped the subject and students who did not.
 
@@ -60,15 +69,19 @@ data_stay$drop <- FALSE
 
 # data_drop$drop <- NULL --- to remove a column
 
-drop_analysis <- rbind(data_drop[,c('G1', 'G2', 'school', 'drop')], data_stay[,c('G1', 'G2',  'school', 'drop')])
+drop_analysis <- rbind(data_drop[,c('G1', 'G2', 'school', 'drop')], 
+                       data_stay[,c('G1', 'G2',  'school', 'drop')])
+
 drop_analysis$G_mean <- rowMeans(drop_analysis[,c('G1', 'G2')])
 
 
-ggplot(drop_analysis, aes(drop, G_mean)) + 
-  # geom_point() 
-  geom_jitter(aes(colour = school), width = 0.25)
+ggplot(data = drop_analysis, aes(x = drop, y = G_mean)) + 
+  geom_point()
+# geom_jitter()
+# geom_jitter(aes(colour = school), width = 0.25)
 
-## Check grades distribution and relation between semesters
+
+# 2.2 - Check grades distribution and relation between semesters ----------
 grades <- pivot_longer(grades_mat, 
                        cols = G1:G3,
                        names_to = "grade",
@@ -76,26 +89,32 @@ grades <- pivot_longer(grades_mat,
 
 # image about boxplots
 library(magick)
-boxplot_pic <- image_read('data/boxplot.png')
+boxplot_pic <- image_read('../0-figures/boxplot.png')
 boxplot_pic <- image_scale(boxplot_pic, "700")
 print(boxplot_pic)
 rm(boxplot_pic)
 
 
 # regular
-ggplot(grades, aes(x=grade, y=score, fill=grade)) + 
+ggplot(grades, aes(x = grade, y = score, fill = grade)) + 
   geom_boxplot() +
   stat_summary(fun.y = "mean", colour = "red", size = 2, geom = "point")
 
 # faceted
-ggplot(grades, aes(x=grade, y=score, fill=grade)) + 
+ggplot(grades, aes(x = grade, y = score, fill = grade)) + 
   geom_boxplot() +
-  expand_limits( y=c(0, 20)) +
+  expand_limits(y=c(0, 20)) +
   stat_summary(fun.y = "mean", colour = "red", size = 2, geom = "point") +
   facet_wrap(~grade, scales = "free")
 
+# using density plots is more 
+ggplot(grades, aes(x = score, fill = grade)) + 
+  geom_density(alpha=0.4) +
+  facet_wrap(~grade, scales = "free")
+
+
 # linear regression G1 with G2
-ggplot(grades_mat,aes(x=G1,y=G2)) +
+ggplot(grades_mat, aes(x = G1, y = G2)) +
   geom_point() + 
   geom_smooth(method = 'lm')
 
@@ -103,7 +122,7 @@ lm_G1_G2 <- lm(G1 ~ G2, grades_mat)
 summary(lm_G1_G2)
 
 # linear regression G1 with G3
-ggplot(grades_mat,aes(x=G1,y=G3)) +
+ggplot(grades_mat, aes(x = G1, y = G3)) +
   geom_point() + 
   geom_smooth(method = 'lm')
 
@@ -111,23 +130,26 @@ lm_G1_G3 <- lm(G1 ~ G3, grades_mat)
 summary(lm_G1_G3)
 
 # linear regression G2 with G3
-ggplot(grades_mat,aes(x=G2,y=G3)) +
+ggplot(grades_mat, aes(x = G2, y = G3)) +
   geom_point() + 
   geom_smooth(method = 'lm') #se = FALSE
 
 lm_G2_G3 <- lm(G2 ~ G3, grades_mat)
 summary(lm_G2_G3)
 
-## Impact of other variables on last grade
+
+# 2.3 - Impact of other variables on final grade ---------------------------
 # studytime
 ggplot(grades_mat, aes(x = studytime, y = G3)) +
-  stat_summary(fun.y = "median", geom ="bar", fill = "#D50032") + 
+  stat_summary(fun.y = "median", geom = "bar", fill = "#D50032") + 
   ggtitle("G3 (median) versus studytime") +
   scale_x_continuous(breaks=c(1, 2, 3, 4),
                      labels=c("1" = "<2 hours", 
                               "2" = "2 to 5 hours", 
                               "3" = "5 to 10 hours", 
-                              "4" = ">10 hours"))
+                              "4" = ">10 hours")) +
+  xlab('Study Time') + 
+  ylab('Final Grade')
 
 # romantic
 ggplot(grades_mat, aes(x = romantic, y = G3)) + 
@@ -143,12 +165,12 @@ ggplot(grades_mat, aes(x = Fjob, y = G3)) +
   ggtitle("G3 (median) versus Father's job types")
 
 
-## Diferent way to look at the data
-
+# 2.4 - Different ways to look at the data ---------------------------------
 # convert the target variable (G3) into binary (either pass or fail)
 # grades less than 10 will be considered as fail and more than or equal to 10 will be considered pass
 # assign the result into a new variable called final
-grades_mat$final <- factor(ifelse(grades_mat$G3 >= 10, 1, 0), labels = c("fail", "pass"))
+grades_mat$final <- factor(ifelse(grades_mat$G3 >= 10, 1, 0), 
+                           labels = c("fail", "pass"))
 
 # remove G3 variable from the dataset
 # grades_mat$G3 <- NULL
@@ -171,10 +193,14 @@ higher_impact
 
 # ratios -- base-r
 nohigher <- sum(higher_impact[which(higher_impact$higher == 'no'), 'total'])
-nohigher_fail <- higher_impact[which(higher_impact$higher == 'no' & higher_impact$final == 'fail'), 'total']
+
+nohigher_fail <- higher_impact[which(higher_impact$higher == 'no' & 
+                                       higher_impact$final == 'fail'), 'total']
 
 higher <- sum(higher_impact[which(higher_impact$higher == 'yes'), 'total'])
-higher_fail <- higher_impact[which(higher_impact$higher == 'yes' & higher_impact$final == 'fail'), 'total']
+
+higher_fail <- higher_impact[which(higher_impact$higher == 'yes' & 
+                                     higher_impact$final == 'fail'), 'total']
 
 nohigher_fail/nohigher
 higher_fail/higher
@@ -187,16 +213,16 @@ grades_mat %>%
   mutate(ratio = count / sum(count)) 
 
 
-# correlations
+# 2.5 - Correlations ------------------------------------------------------
 dmy <- dummyVars("~.", data = grades_mat)
 newdata <- data.frame(predict(dmy, newdata = grades_mat))
-correl1 <-cor(newdata[,c("G3","sex.F","sex.M","Walc","Dalc")])
-correl1 %>%
-  ggcorr(label = TRUE) +
-  ggtitle("Correlation between Alcohol Consumption,Gender and Performance")
+correl1 <- cor(newdata[,c("G3","sex.F","sex.M","Walc","Dalc")])
 
-# 3 - Exercices -----------------------------------------------------------
-# What is the effect in the success rate (final) of the Math Course of the following attributes?
+ggcorr(data = correl1, label = TRUE) +
+  ggtitle("Correlation between Alcohol Consumption, Gender and Performance")
+
+# 3 - Exercises -----------------------------------------------------------
+# What is the effect in the success rate (final) of the Math Course of the following attributes:
 
 # 3.1 Family size (famsize)
 
@@ -205,6 +231,4 @@ correl1 %>%
 # have higher success?
 
 
-# 3.3 Effect of traveltime in G3
-
-
+# 3.3 Effect of freetime in G3
