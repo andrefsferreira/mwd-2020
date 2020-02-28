@@ -2,11 +2,7 @@
 Notes and code for the 2020 **Mind Your Data** 180 min workshop in Coimbra. The workshop is divided in three stages:
 
 1. [Introduction to R](https://github.com/andrefsferreira/mwd-2020/tree/master/1-intro-to-R) - Introduction to RStudio IDE and R language 
- <img src="0-media/data-viz.png" width="350">
-
 2. [Build you First Model](https://github.com/andrefsferreira/mwd-2020/tree/master/2-build-your-first-model) - Data attribute analysis, cleanning and classification model creation
- <img src="0-media/model.png" width="450">
-
 3. [Deploy your Model](https://github.com/andrefsferreira/mwd-2020/tree/master/3-deploy-your-model) -  Deployment of model using RStudio Shiny 
  <img src="0-media/dashboard.png" width="700">
 
@@ -47,6 +43,7 @@ Notes and code for the 2020 **Mind Your Data** 180 min workshop in Coimbra. The 
 
 ## Supporting Info:
  - [Student Performance Data Set](http://archive.ics.uci.edu/ml/datasets/Student+Performance)
+ - [R: What is R?](https://www.r-project.org/about.html)
  - [R for Data Science](https://r4ds.had.co.nz/)
  - [Advanced R](https://adv-r.hadley.nz/index.html)
  - [The tidyverse style guide](https://style.tidyverse.org/index.html)
