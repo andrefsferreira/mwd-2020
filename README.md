@@ -1,9 +1,9 @@
 ## Description:
 Notes and code for the 2020 **Mind Your Data** 180 min workshop in Coimbra. The workshop is divided in three stages:
 
-1. [Introduction to R](https://github.com/andrefsferreira/mwd-2020/tree/master/1-intro-to-R) - Introduction to RStudio IDE and R language
-2. [Build you First Model](https://github.com/andrefsferreira/mwd-2020/tree/master/2-build-your-first-model) - Data attribute analysis, cleanning and classification model creation
-3. [Deploy your Model](https://github.com/andrefsferreira/mwd-2020/tree/master/3-deploy-your-model) -  Deployment of model using RStudio Shiny
+1. [Introduction to R](https://github.com/andrefsferreira/mwd-2020/tree/master/1-intro-to-R) - Became acquainted with R language and RStudio IDE and basic data exploration
+2. [Build you First Model](https://github.com/andrefsferreira/mwd-2020/tree/master/2-build-your-first-model) - Attribute analysis, data cleaning and labelling. Build your first model -- classifier -- with R
+3. [Deploy your Model](https://github.com/andrefsferreira/mwd-2020/tree/master/3-deploy-your-model) -  Deployment of model using Shiny
 
 
 <center> <img src="0-media/dashboard.png" width="700"> </center>
@@ -25,6 +25,7 @@ Notes and code for the 2020 **Mind Your Data** 180 min workshop in Coimbra. The 
 - skimr
 - tidyr
 - dplyr
+- magick 
 - GGally
 - caret
 - e1071
@@ -39,7 +40,7 @@ Notes and code for the 2020 **Mind Your Data** 180 min workshop in Coimbra. The 
 - DT
 
 **Run the following command in RStudio terminal to install all required pacakges:**
-`install.packages(c('ggplot2','skimr','tidyr','dplyr','GGally','caret','e1071','gbm','ROCR','randomForest','glmnet','rqPen','shiny','shinydashboard','shinyalert','DT'))`
+`install.packages(c('ggplot2','skimr','tidyr','dplyr','magick','GGally','caret','e1071','gbm','ROCR','randomForest','glmnet','rqPen','shiny','shinydashboard','shinyalert','DT'))`
 
 
 
