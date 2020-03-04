@@ -42,8 +42,6 @@ Notes and code for the 2020 **Mind Your Data** 180 min workshop in Coimbra. The 
 **Run the following command in RStudio terminal to install all required pacakges:**
 `install.packages(c('ggplot2','skimr','tidyr','dplyr','magick','GGally','caret','e1071','gbm','ROCR','randomForest','glmnet','rqPen','shiny','shinydashboard','shinyalert','DT'))`
 
-
-
 ## Supporting Info:
  - [Student Performance Data Set](http://archive.ics.uci.edu/ml/datasets/Student+Performance)
  - [R: What is R?](https://www.r-project.org/about.html)
@@ -53,3 +51,6 @@ Notes and code for the 2020 **Mind Your Data** 180 min workshop in Coimbra. The 
  - [Student Performance Analysis by Lee Min Hua & Mohamad Najmudin](https://rpubs.com/mhlee/student-performance-prediction)
  - [Student Performance Analysis by Arun Kumar](https://rstudio-pubs-static.s3.amazonaws.com/108835_65a73467d96f4c79a5f808f5b8833922.html)
  - [Student Performance Analysis by Dhivya Rajprasad](https://rpubs.com/dhivya89/PredictionModelPerformance)
+
+## Disclaimer:
+ - The code being shared was written to be human readable and understandable – not to be efficient
